@@ -36,7 +36,6 @@
 }
 
 .main {
-
   padding: 2rem;
 
 }
@@ -44,7 +43,7 @@
 .app {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   gap: 1rem;
   min-height: 100dvh; /* dynamic viewport height also for mobile  */
   max-width: 1280px;
@@ -67,6 +66,7 @@ pre {
 .response {
   display: grid;
   grid-template-columns: max-content 1fr;
+  margin-top: 100px;
   grid-gap: 1rem;
   width: 100%;
 }
@@ -89,9 +89,17 @@ pre {
 
 .response__content-box {
   border-radius: var(--border-radius);
-  background-color: var(--color-bg);
+
   max-width: 100%;
   overflow: hidden;
+}
+
+.response__content-box--user {
+  background-color: var(--color-bg-shade);
+}
+
+.response__content-box--bot {
+  background-color: var(--color-bg);
 }
 
 .response__text {
@@ -119,27 +127,29 @@ pre {
   margin: 0 auto;
   padding: 1rem 2rem 2rem 2rem;
   transform: translateX(-50%);
-  box-shadow: var(--box-shadow);
-  background: var(--color-bg-body);
+  /* From https://css.glass */
+  background: rgba(25, 24, 24, 0.98);
+  border-radius: 16px 16px 0 0;
+  -webkit-backdrop-filter: blur(7.8px);
 }
 
 .form__textarea {
   flex: 1;
   font-family: inherit;
-  color: var(----color-text);
+  color: var(--color-text);
   padding: var(--spacing-md);
   outline: none;
   border: 1px solid transparent;
   border-radius: var(--border-radius);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-body);
   max-height: 200px;
   resize: none;
   overflow: auto;
 }
 
-.form__textarea:focus {
-  border: 1px solid var(--color-primary);
-}
+/*.form__textarea:focus {*/
+/*  border: 1px solid var(--color-primary);*/
+/*}*/
 
 .form__buttons {
   display: flex;
@@ -263,11 +273,14 @@ pre {
   top: 0;
   bottom: 0;
   width: 300px;
-  z-index: 10;
+  z-index: 9999999;
   padding: 1rem;
-  background-color: var(--color-bg);
-  overflow: auto;
-  transition: left 0.5s ease-in-out; /* add transition here */
+  /* From https://css.glass */
+  background: rgba(36, 36, 36, 0.98);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.8px);
+  -webkit-backdrop-filter: blur(7.8px);
 }
 
 .side_bar__open {
@@ -303,18 +316,25 @@ pre {
   height: auto;
   padding: 0.1rem;
   cursor: pointer;
-  border: 1px solid #3e3f4b;
   border-radius: var(--border-radius);
 }
 
 .nav_bar {
+  position: fixed;
+  max-width: 1280px;
+  width: 90%;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: var(--color-bg);
-  box-shadow: var(--box-shadow);
-  border-radius: var(--border-radius);
+  margin: auto;
+  /* From https://css.glass */
+  background: rgba(25, 24, 24, 0.91);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(7.8px);
 }
 
 .dropdown {
@@ -322,14 +342,14 @@ pre {
   display: inline-block;
   cursor: pointer;
   right: 0;
-  margin-right: 30px;
-  top: 120px;
+  margin-right: 5px;
+  top: 90px;
 }
 
 .dropdown__content {
   position: relative;
 
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-body);
   min-width: 160px;
   box-shadow: var(--box-shadow);
   z-index: 1;
@@ -359,6 +379,7 @@ pre {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 .selected_agent {
   color: var(--color-primary);
   display: flex;

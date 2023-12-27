@@ -11,7 +11,6 @@ interface IChatForm {
     agent: string;
     prompt: string;
   };
-  role: 'assistant' | 'system';
 }
 
 const SYNTAX_HIGHLIGHTING_PROMPT = '\n\nUse triple backticks for syntax highlighting for the code snippets';
