@@ -11,7 +11,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 // eslint-disable-next-line import/order
 import { Bars3BottomLeftIcon } from '@heroicons/react/16/solid';
 // eslint-disable-next-line import/order
-import { VenetianMask , Settings2 } from 'lucide-react';
+import { VenetianMask, Settings2, Eraser } from 'lucide-react';
 
 export const App = () => {
   // V1 Response Streaming with Context Memory
@@ -64,6 +64,9 @@ export const App = () => {
             }} />
             <Settings2 className="toggle_icon" onClick={() => {
               setToggleDropdown(!toggleDropdown);
+            }} />
+            <Eraser className="toggle_icon" onClick={() => {
+              resetMessages();
             }} />
             {selectedAgent.prompt !== '' && (
               <div className="selected_agent">
