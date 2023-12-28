@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react';
 import { ChatContent } from './components/ChatContent';
 import { ChatForm } from './components/ChatForm';
-import { ChatMetaData } from './components/ChatMetaData';
 import { ChatResponseLayout } from './components/ChatResponseLayout';
 import { Role } from './components/Role';
 import { useOpenAIChatStream } from './hooks/useOpenAIChatStream';
 import { getFormattedText } from './utils/utils';
 import './App.css';
-import { LockClosedIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { Bars3BottomLeftIcon, CpuChipIcon, TrashIcon } from '@heroicons/react/16/solid';
-import { VenetianMask } from 'lucide-react';
+// eslint-disable-next-line import/order
+import { XMarkIcon } from '@heroicons/react/20/solid';
+// eslint-disable-next-line import/order
+import { Bars3BottomLeftIcon } from '@heroicons/react/16/solid';
+// eslint-disable-next-line import/order
+import { VenetianMask , Settings2 } from 'lucide-react';
 
 export const App = () => {
   // V1 Response Streaming with Context Memory
-  const { messages, submitPrompt, resetMessages, isLoading, abortStream } = useOpenAIChatStream({
+  const { messages, submitPrompt, resetMessages, isLoading, abortStream , regenerateResponse } = useOpenAIChatStream({
     model: 'gpt-4-1106-preview',
     apiKey: import.meta.env.VITE_OPEN_AI_KEY
   });
@@ -26,7 +28,7 @@ export const App = () => {
   });
   const promptList = [
     {
-      agent: 'english teacher',
+      agent: 'spell checker',
       prompt: 'You are an English teacher. You correct English grammar and spelling mistake'
     },
     {
@@ -56,9 +58,11 @@ export const App = () => {
         )}
         <div className="nav_bar">
           <Bars3BottomLeftIcon className="toggle_icon" onClick={() => setToggle(!toggle)} />
-
-          <div className="agent_seletor">
+          <div className="agent_selector">
             <VenetianMask className="toggle_icon" onClick={() => {
+              setToggleDropdown(!toggleDropdown);
+            }} />
+            <Settings2 className="toggle_icon" onClick={() => {
               setToggleDropdown(!toggleDropdown);
             }} />
             {selectedAgent.prompt !== '' && (
@@ -78,7 +82,7 @@ export const App = () => {
               <div className="dropdown__content">
                 {
                   promptList.map((item, index) => (
-                    <div className="dropdown__content__item" key={index} onClick={() => {
+                    <div className={`dropdown__content__item ${selectedAgent.agent === item.agent ? 'selected_agent':''}`} key={index} onClick={() => {
                       setSelectedAgent(item);
                       setToggleDropdown(!toggleDropdown);
                     }}>
@@ -104,7 +108,7 @@ export const App = () => {
         </ChatResponseLayout>
       </main>
 
-      <ChatForm onSubmit={submitPrompt} onReset={resetMessages} isLoading={isLoading} selectedAgent={selectedAgent} />
+      <ChatForm onSubmit={submitPrompt} onReset={regenerateResponse} isLoading={isLoading} selectedAgent={selectedAgent}  />
       <button className={`button button--abort ${isLoading ? 'active' : ''}`} onClick={abortStream}>
         Abort
       </button>

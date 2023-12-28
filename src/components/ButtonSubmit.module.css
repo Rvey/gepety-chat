@@ -1,0 +1,59 @@
+.button {
+  font-family: inherit;
+  font-size: 16px;
+  background: transparent;
+  color: white;
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--color-bg-shade);
+}
+
+.button span {
+  display: block;
+  margin-right: 1em;
+  transition: all 0.3s ease-in-out;
+}
+.button:hover {
+  background-color: var(--color-bg-shade);
+}
+
+
+.button_send {
+  background-color: var(--color-primary);
+  font-family: inherit;
+  font-size: 16px;
+  color: white;
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--color-bg-shade);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-shade);
+}
+
+.button_send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-bg-shade);
+}
+
+.button:hover {
+  background-color: var(--color-bg-shade);
+}
+
+.button_send:hover {
+  background-color: var(--color-bg-shade);
+}

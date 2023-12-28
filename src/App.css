@@ -138,6 +138,7 @@ pre {
   font-family: inherit;
   color: var(--color-text);
   padding: var(--spacing-md);
+  font-size: 0.9rem;
   outline: none;
   border: 1px solid transparent;
   border-radius: var(--border-radius);
@@ -310,7 +311,6 @@ pre {
   border: #3e3f4b 1px solid;
 }
 
-
 .toggle_icon {
   width: 2rem;
   height: auto;
@@ -370,11 +370,10 @@ pre {
   background-color: var(--color-bg-shade);
 }
 
-.agent_seletor {
+.agent_selector {
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -383,6 +382,8 @@ pre {
 .selected_agent {
   color: var(--color-primary);
   display: flex;
+  font-size: 0.9rem;
   align-items: center;
   gap: 0.5rem;
 }
+

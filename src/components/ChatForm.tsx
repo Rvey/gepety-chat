@@ -1,7 +1,9 @@
-import { useReducer, useRef, useState } from 'react';
+import { RefreshCw, SendHorizontal } from 'lucide-react';
+import { useRef, useState } from 'react';
 import type { ChatMessageParams } from '@/hooks/useOpenAIChatStream';
 import { setCSSVariable } from '@/utils/utils';
 import type { FormEvent } from 'react';
+import classes from './ButtonSubmit.module.css';
 
 interface IChatForm {
   onSubmit: (newPrompt: ChatMessageParams[]) => void;
@@ -53,7 +55,6 @@ export const ChatForm = ({ onSubmit, onReset, isLoading, selectedAgent }: IChatF
       onSubmit([{ role: 'user', content: prompt }]);
       inputRef.current.value = '';
     }
-
   };
 
   return (
@@ -62,17 +63,16 @@ export const ChatForm = ({ onSubmit, onReset, isLoading, selectedAgent }: IChatF
         className="form__textarea"
         ref={inputRef}
         placeholder="Type your message here..."
-
         autoFocus
         spellCheck={true}
         onInput={handleResizeInput}
       />
       <div className="form__buttons">
-        <button type="submit" className="button" disabled={isLoading}>
-          Submit
+        <button type="submit" className={classes.button_send} disabled={isLoading}>
+          <SendHorizontal  />
         </button>
-        <button type="reset" className="button" onClick={onReset} disabled={isLoading}>
-          Reset Context
+        <button type="reset" className={classes.button} onClick={onReset} disabled={isLoading} >
+          <RefreshCw />
         </button>
       </div>
     </form>

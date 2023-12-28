@@ -113,6 +113,9 @@ export const useOpenAIChatStream = ({ model, apiKey }: OpenAIStreamingProps) => 
     setController(null);
   };
 
+  // regenerate the last message entry in the list with the final details and send it to the API
+
+
   const closeStream = (startTimestamp: number) => {
     // determine the final timestamp, and calculate the number of seconds the full request took.
     const endTimestamp = Date.now();
@@ -227,6 +230,24 @@ export const useOpenAIChatStream = ({ model, apiKey }: OpenAIStreamingProps) => 
     },
     [apiKey, isLoading, messages, model]
   );
-
-  return { messages, submitPrompt, resetMessages, isLoading, abortStream };
+  const regenerateResponse = async () => {
+    const lastMessage = messages.at(-2);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    const updatedLastMessage = {
+      ...lastMessage,
+      meta: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        ...lastMessage.meta,
+        loading: true
+      }
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setMessages(updateLastItem(messages, updatedLastMessage));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    await submitPrompt([updatedLastMessage]);
+  };
+  return { messages, submitPrompt, resetMessages, isLoading, abortStream, regenerateResponse };
 };
