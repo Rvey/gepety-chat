@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import type { ReactNode } from 'react';
+import AutoScroll from '@brianmcallister/react-auto-scroll';
 
 interface IChatContent {
   text: (string | JSX.Element)[];
@@ -7,7 +8,7 @@ interface IChatContent {
   role: string;
 }
 
-export const ChatContent = ({ text, children , role }: IChatContent) => {
+export const ChatContent = ({ text, children, role }: IChatContent) => {
   return (
     <div className={`response__content-box ${role === 'user' ? 'response__content-box--user' : 'response__content-box--bot'}`}>
       <pre className="response__text">

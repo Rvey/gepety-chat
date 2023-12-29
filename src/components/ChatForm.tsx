@@ -1,14 +1,17 @@
-import { RefreshCw, SendHorizontal } from 'lucide-react';
+import { Eraser, RefreshCw, SendHorizontal } from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { ChatMessageParams } from '@/hooks/useOpenAIChatStream';
 import { setCSSVariable } from '@/utils/utils';
 import type { FormEvent } from 'react';
 import classes from './ButtonSubmit.module.css';
+import { Simulate } from 'react-dom/test-utils';
+import submit = Simulate.submit;
 
 interface IChatForm {
   onSubmit: (newPrompt: ChatMessageParams[]) => void;
   onReset: () => void;
   isLoading: boolean;
+  resetMessages: () => void;
   selectedAgent: {
     agent: string;
     prompt: string;
@@ -25,7 +28,7 @@ const getSyntaxHighlightingText = (shouldHighlight: boolean, currentInput: strin
   return SYNTAX_HIGHLIGHTING_PROMPT;
 };
 
-export const ChatForm = ({ onSubmit, onReset, isLoading, selectedAgent }: IChatForm) => {
+export const ChatForm = ({ onSubmit, onReset, isLoading, selectedAgent, resetMessages }: IChatForm) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -59,6 +62,14 @@ export const ChatForm = ({ onSubmit, onReset, isLoading, selectedAgent }: IChatF
 
   return (
     <form className="form" ref={formRef} onSubmit={handleSubmit}>
+      <div className="form__buttons">
+        <button type="submit" className={classes.button} disabled={isLoading} onClick={resetMessages}>
+          <Eraser />
+        </button>
+        <button type="reset" className={classes.button} onClick={onReset} disabled={isLoading}>
+          <RefreshCw />
+        </button>
+      </div>
       <textarea
         className="form__textarea"
         ref={inputRef}
@@ -67,14 +78,9 @@ export const ChatForm = ({ onSubmit, onReset, isLoading, selectedAgent }: IChatF
         spellCheck={true}
         onInput={handleResizeInput}
       />
-      <div className="form__buttons">
-        <button type="submit" className={classes.button_send} disabled={isLoading}>
-          <SendHorizontal  />
-        </button>
-        <button type="reset" className={classes.button} onClick={onReset} disabled={isLoading} >
-          <RefreshCw />
-        </button>
-      </div>
+      <button type="submit" className={classes.button_send} disabled={isLoading}>
+        <SendHorizontal />
+      </button>
     </form>
   );
 };
